@@ -4,7 +4,8 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
+
+var server = new Server('mongo', 27017, {auto_reconnect: true});
 db = new Db('tweetdb', server);
 
 db.open(function(err, db) {
@@ -12,8 +13,8 @@ db.open(function(err, db) {
         console.log("Connected to 'tweetdb' database");
         db.collection('tweets', {strict:true}, function(err, collection) {
             if (err) {
-                console.log("The 'tweets' collection doesn't exist. Creating it with sample data...");
-                populateDB();
+                //console.log("The 'tweets' collection doesn't exist. Creating it with sample data...");
+                //populateDB();
             }
         });
     }

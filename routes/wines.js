@@ -30,6 +30,7 @@ exports.findById = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
+    console.log('retrieving all wines');
     db.collection('wines', function(err, collection) {
         collection.find().toArray(function(err, items) {
             res.send(items);
@@ -57,8 +58,9 @@ exports.updateWine = function(req, res) {
     var wine = req.body;
     console.log('Updating wine: ' + id);
     console.log(JSON.stringify(wine));
+
     db.collection('wines', function(err, collection) {
-        collection.update({'_id':new BSON.ObjectID(id)}, wine, {safe:true}, function(err, result) {
+        collection.update({'_id':new mongo.ObjectID(id)}, wine, {safe:true}, function(err, result) {
             if (err) {
                 console.log('Error updating wine: ' + err);
                 res.send({'error':'An error has occurred'});
@@ -73,8 +75,9 @@ exports.updateWine = function(req, res) {
 exports.deleteWine = function(req, res) {
     var id = req.params.id;
     console.log('Deleting wine: ' + id);
+
     db.collection('wines', function(err, collection) {
-        collection.remove({'_id':new BSON.ObjectID(id)}, {safe:true}, function(err, result) {
+        collection.remove({'_id':new mongo.ObjectID(id)}, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred - ' + err});
             } else {

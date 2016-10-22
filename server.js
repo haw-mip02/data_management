@@ -1,7 +1,10 @@
 var express = require('express'),
-    wine = require('./routes/wines');
+    wine = require('./routes/wines'),
+    bodyParser = require('body-parser');
 
 var app = express();
+
+app.use(bodyParser.json());
 
 app.get('/wines', wine.findAll);
 app.get('/wines/:id', wine.findById);

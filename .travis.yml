@@ -1,12 +1,8 @@
 sudo: required
 
-language: node_js
-
 services:
   - docker
-  - mongodb
 
 
-install:
-  - docker build  - < Dockerfile -t data_management
-  - docker compose
+script:
+  - docker build -t data_management .

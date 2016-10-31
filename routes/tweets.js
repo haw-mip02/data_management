@@ -24,9 +24,14 @@ exports.findById = function(req, res) {
     var id = req.params.id;
     console.log('Retrieving tweet: ' + id);
     db.collection('tweets', function(err, collection) {
-        collection.findOne({'_id':new mongo.ObjectID(id)}, function(err, item) {
-            res.send(item);
-        });
+	if(err) {
+		console.log("ERROR OCCURED: " + err);
+	} else {
+		collection.findOne({'_id':new mongo.ObjectID(id)}, function(err, item) {
+		//collection.find({'_id':new mongo.ObjectID(id)}, function(err, item) {
+		    res.send(item);
+		});
+	}
     });
 };
 
@@ -43,9 +48,13 @@ exports.findByTimestamp = function(req, res) {
 exports.findAll = function(req, res) {
     console.log('retrieving all tweets');
     db.collection('tweets', function(err, collection) {
-        collection.find().toArray(function(err, items) {
-            res.send(items);
-        });
+	if(err) {
+		console.log(err);
+	} else {
+		collection.find().toArray(function(err, items) {
+		    res.send(items);
+		});
+	}
     });
 };
 

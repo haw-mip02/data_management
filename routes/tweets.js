@@ -39,7 +39,8 @@ exports.findByTimestamp = function(req, res) {
     var ts = req.params.timestamp;
     console.log('Retrieving tweets not older than ' + ts);
     db.collection('tweets', function(err, collection) {
-        collection.find({timestamp: {$gt: ts}}, function(err, items) {
+        collection.find({timestamp_ms: {$gt: ts}}).toArray(function(err, items) {
+            console.log(items);
             res.send(items);
         });
     });

@@ -9,6 +9,7 @@ app.use(bodyParser.json());
 
 app.get('/tweets', tweet.findAll);
 app.get('/tweets/:id', tweet.findById);
+app.get('/tweets/ts/:timestamp', tweet.findByTimestamp);
 app.post('/tweets', tweet.addTweet);
 
 app.listen(3000);

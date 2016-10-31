@@ -30,6 +30,16 @@ exports.findById = function(req, res) {
     });
 };
 
+exports.findByTimestamp = function(req, res) {
+    var ts = req.params.timestamp;
+    console.log('Retrieving tweets not older than ' + ts);
+    db.collection('tweets', function(err, collection) {
+        collection.find({timestamp: {$gt: ts}}, function(err, items) {
+            res.send(items);
+        });
+    });
+};
+
 exports.findAll = function(req, res) {
     console.log('retrieving all tweets');
     db.collection('tweets', function(err, collection) {

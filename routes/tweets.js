@@ -71,9 +71,9 @@ exports.findAll = function(req, res) {
 
 exports.addTweet = function(req, res) {
     var tweet = req.body;
-    console.log('Adding tweet: ' + JSON.stringify(tweet));
+    console.log('Adding tweet: ' + JSON.stringify(tweet) + '\n');
     db.collection('tweets', function(err, collection) {
-        collection.insert(tweet, {safe:true}, function(err, result) {
+        collection.insertOne(tweet, {safe:true}, function(err, result) {
             if (err) {
                 res.send({'error':'An error has occurred'});
             } else {

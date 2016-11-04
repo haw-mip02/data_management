@@ -60,18 +60,24 @@ exports.findAll = function(req, res) {
     });
 };
 
-exports.addTweet = function(req, res) {
-    var tweet = req.body;
-    console.log('Adding tweet: ' + JSON.stringify(tweet) + '\n');
+exports.addTweets = function(req, res) {
+    var tweets = req.body;
+    console.log('Adding tweets: ' + tweets + '\n');
     db.collection('tweets', function(err, collection) {
-        collection.insertOne(tweet, {safe:true}, function(err, result) {
-            if (err) {
-                res.send({'error':'An error has occurred'});
-            } else {
-                console.log('Success: ' + JSON.stringify(result[0]));
-                res.send(result[0]);
-            }
-        });
+        if (err) {
+            res.status(500).send({'error': 'An error has occurred'});
+            console.log(err)
+        } else {
+            collection.insertMany(tweets, {safe:true}, function(err, result) {
+                if (err) {
+                    res.status(500).send({'error': 'An error has occurred'});
+                    console.log(err);
+                } else {
+                    res.send(result[0]);
+                    console.log('addTweet: SUCCESS')
+                }
+            });
+        }
     });
 }
 

@@ -11,6 +11,7 @@ db = new Db('tweetdb', server);
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'tweetdb' database");
+	db.collection.createIndex({timestamp_ms: 1});
         db.collection('tweets', {strict:true}, function(err, collection) {
             if (err) {
                 //console.log("The 'tweets' collection doesn't exist. Creating it with sample data...");

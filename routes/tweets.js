@@ -41,7 +41,7 @@ exports.findByTimestamp = function(req, res) {
     console.log('Retrieving tweets not older than ' + ts);
     db.collection('tweets', function(err, collection) {
 	//TODO: check for greater equal on timestamp
-        collection.find({timestamp_ms: {$gt: ts}}).toArray(function(err, items) {
+        collection.find({timestamp_ms: {$gt: ts}}).limit(100).toArray(function(err, items) {
             console.log(items);
             res.send(items);
         });
@@ -54,7 +54,7 @@ exports.findAll = function(req, res) {
 	if(err) {
 		console.log(err);
 	} else {
-		collection.find().toArray(function(err, items) {
+		collection.find().limit(100).toArray(function(err, items) {
 		    res.send(items);
 		});
 	}

@@ -4,13 +4,22 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
+var env = process.env
 
-var server = new Server('mongo', 27017, {auto_reconnect: true});
-db = new Db('tweetdb', server);
+console.log("ENV ", env.MONGODB_PORT_27017_TCP_ADDR, env.MONGODB_PORT_27017_TCP_PORT, env.MONGODB_USER, env.MONGODB_PASS);
+var server = new Server(env.MONGODB_PORT_27017_TCP_ADDR, env.MONGODB_PORT_27017_TCP_PORT, {auto_reconnect: true});
+db = new Db(env.MONGODB_DATABASE, server);
 
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'tweetdb' database");
+		db.authenticate(env.MONGODB_USER, env.MONGODB_PASS, function(err, res){
+			if(!err) {
+				console.log("user authenticated");
+			} else {
+				console.log("error authenticating user: " + err);
+			}
+		});
         db.collection('tweets', {strict:true}, function(err, collection) {
             if (err) {
                 //console.log("The 'tweets' collection doesn't exist. Creating it with sample data...");

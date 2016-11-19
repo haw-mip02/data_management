@@ -1,10 +1,18 @@
 web:
   build: .
   links:
-    - mongo
+    - mongo:mongodb
   ports:
     - "3000:3000"
+  environment:
+    MONGODB_USER: "mongo"
+    MONGODB_DATABASE: "tweetdb"
+    MONGODB_PASS: ${MONGODB_PASS}
 mongo:
-  image: mongo
+  image: tutum/mongodb:3.2
   ports:
     - "27017:27017"
+  environment:
+    MONGODB_USER: "mongo"
+    MONGODB_DATABASE: "tweetdb"
+    MONGODB_PASS: ${MONGODB_PASS}

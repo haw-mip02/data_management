@@ -1,7 +1,7 @@
 sudo: required
 
 notifications:
-  slack: dasasozialenetzwerk:$SLACK_TOKEN
+  slack: dasasozialenetzwerk:4PhxD0MXSGMtzxSawPrO9BKm
 
 services:
   - docker

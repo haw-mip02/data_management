@@ -51,17 +51,18 @@ exports.findByTimestamp = function(req, res) {
 exports.findAll = function(req, res) {
     console.log('retrieving all tweets');
     db.collection('tweets', function(err, collection) {
-	if(err) {
-		console.log(err);
-	} else {
-		collection.find().limit(100).toArray(function(err, items) {
-		    res.send(items);
-		});
-	}
+        if(err) {
+                console.log(err);
+        } else {
+                collection.find().limit(100).toArray(function(err, items) {
+                    res.send(items);
+                });
+        }
     });
 };
 
 exports.addTweets = function(req, res) {
+  if(process.env.DB_ACCESS_TOKEN === req.query.token) {
     var tweets = req.body;
     console.log('Adding tweets: ' + tweets + '\n');
     db.collection('tweets', function(err, collection) {
@@ -80,6 +81,7 @@ exports.addTweets = function(req, res) {
             });
         }
     });
+  }
 }
 
 // /*--------------------------------------------------------------------------------------------------------------------*/

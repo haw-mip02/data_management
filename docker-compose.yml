@@ -8,6 +8,7 @@ web:
     MONGODB_USER: "mongo"
     MONGODB_DATABASE: "tweetdb"
     MONGODB_PASS: ${MONGODB_PASS}
+    MONGODB_ACCESS_TOKEN: RGFzIEFzb3ppYWxlIE5ldHp3ZXJr
 mongo:
   image: tutum/mongodb:3.2
   ports:

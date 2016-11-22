@@ -36,7 +36,7 @@ exports.findById = function(req, res) {
     console.log('Retrieving tweet: ' + id);
     db.collection('tweets', function(err, collection) {
 	if(err) {
-                res.status(404).send({'Error 404': err});
+                res.status(404).send({'Error 404': "Id must be exactly 12 characters long."});
 		console.log("ERROR OCCURED: " + err);
 	} else {
 		collection.findOne({'_id':new mongo.ObjectID(id)}, function(err, item) {

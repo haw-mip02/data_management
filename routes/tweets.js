@@ -71,8 +71,8 @@ exports.addTweets = function(req, res) {
             res.status(500).send({'Collection Error 500': err});
             console.log(err)
         } else {
+          try {
             collection.insertMany(tweets, {safe:true}, function(err, result) {
-              try {
                 if (err) {
                     res.status(500).send({'Insert Error 500': err});
                     console.log(err);
@@ -80,11 +80,11 @@ exports.addTweets = function(req, res) {
                     res.send(result[0]);
                     console.log('addTweet: SUCCESS')
                 }
-              } catch (e) {
-                console.log(e);
-              }
             });
+          } catch (e) {
+            console.log(e);
           }
+        }
       });
 }
 

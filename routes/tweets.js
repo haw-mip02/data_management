@@ -25,7 +25,7 @@ exports.findById = function(req, res) {
     console.log('Retrieving tweet: ' + id);
     db.collection('tweets', function(err, collection) {
 	if(err) {
-		//TODO: return 404 error if ID is invalid (too short etc.)
+                res.status(404).send({'Error 404': err});
 		console.log("ERROR OCCURED: " + err);
 	} else {
 		collection.findOne({'_id':new mongo.ObjectID(id)}, function(err, item) {
@@ -65,12 +65,12 @@ exports.addTweets = function(req, res) {
     console.log('Adding tweets: ' + tweets + '\n');
     db.collection('tweets', function(err, collection) {
         if (err) {
-            res.status(500).send({'error': 'An error has occurred'});
+            res.status(500).send({'Error 500': err});
             console.log(err)
         } else {
             collection.insertMany(tweets, {safe:true}, function(err, result) {
                 if (err) {
-                    res.status(500).send({'error': 'An error has occurred'});
+                    res.status(500).send({'Error 500': err});
                     console.log(err);
                 } else {
                     res.send(result[0]);

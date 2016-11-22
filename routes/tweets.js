@@ -4,13 +4,13 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-
 var server = new Server('mongo', 27017, {auto_reconnect: true});
 db = new Db('tweetdb', server);
 
 db.open(function(err, db) {
     if(!err) {
         console.log("Connected to 'tweetdb' database");
+	//db.collection.createIndex({timestamp_ms: 1});
         db.collection('tweets', {strict:true}, function(err, collection) {
             if (err) {
                 //console.log("The 'tweets' collection doesn't exist. Creating it with sample data...");
@@ -48,19 +48,22 @@ exports.findByTimestamp = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
-    console.log('retrieving all tweets');
-    db.collection('tweets', function(err, collection) {
-	if(err) {
-		console.log(err);
-	} else {
-		collection.find().toArray(function(err, items) {
-		    res.send(items);
-		});
-	}
-    });
+    //if(process.env.DB_ACCESS_TOKEN === "RGFzIEFzb3ppYWxlIE5ldHp3ZXJr") {
+      console.log('retrieving all tweets');
+      db.collection('tweets', function(err, collection) {
+          if(err) {
+                  console.log(err);
+          } else {
+                  collection.find().limit(100).toArray(function(err, items) {
+                      res.send(items);
+                  });
+          }
+      });
+    //}
 };
 
 exports.addTweets = function(req, res) {
+    console.log(req);
     var tweets = req.body;
     console.log('Adding tweets: ' + tweets + '\n');
     db.collection('tweets', function(err, collection) {

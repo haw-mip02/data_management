@@ -4,6 +4,8 @@ web:
     - mongo
   ports:
     - "3000:3000"
+  environment:
+    DB_ACCESS_TOKEN: RGFzIEFzb3ppYWxlIE5ldHp3ZXJr
 mongo:
   image: mongo
   ports:

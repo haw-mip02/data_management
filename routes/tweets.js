@@ -68,12 +68,12 @@ exports.addTweets = function(req, res) {
     console.log('Adding tweets: ' + tweets + '\n');
     db.collection('tweets', function(err, collection) {
         if (err) {
-            res.status(500).send({'Error 500': err});
+            res.status(500).send({'Collection Error 500': err});
             console.log(err)
         } else {
             collection.insertMany(tweets, {safe:true}, function(err, result) {
                 if (err) {
-                    res.status(500).send({'Error 500': err});
+                    res.status(500).send({'Insert Error 500': err});
                     console.log(err);
                 } else {
                     res.send(result[0]);

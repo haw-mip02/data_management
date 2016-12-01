@@ -17,7 +17,9 @@ db.open(function(err, db) {
                 //populateDB();
             }
         });
-    }
+    } else {
+		console.log("Error while connecting to 'tweetdb' database: " + err);
+	}
 });
 
 exports.findById = function(req, res) {
@@ -63,9 +65,9 @@ exports.findAll = function(req, res) {
 };
 
 exports.addTweets = function(req, res) {
-    console.log(req);
+    //console.log(req);
     var tweets = req.body;
-    console.log('Adding tweets: ' + tweets + '\n');
+    //console.log('Adding tweets: ' + tweets + '\n');
     db.collection('tweets', function(err, collection) {
         if (err) {
             res.status(500).send({'Collection Error 500': err});

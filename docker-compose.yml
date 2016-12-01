@@ -6,6 +6,9 @@ web:
     - "3000:3000"
   environment:
     DB_ACCESS_TOKEN: RGFzIEFzb3ppYWxlIE5ldHp3ZXJr
+    MONGODB_DATABASE: tweetdb
+    MONGODB_PORT_27017_TCP_ADDR: mongo
+    MONGODB_PORT_27017_TCP_PORT: 27017
 mongo:
   image: mongo
   ports:

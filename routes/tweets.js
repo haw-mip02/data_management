@@ -4,8 +4,15 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server('mongo', 27017, {auto_reconnect: true});
-db = new Db('tweetdb', server);
+//var server = new Server('mongo', 27017, {auto_reconnect: true});
+//db = new Db('tweetdb', server);
+
+
+var env = process.env
+
+console.log("ENV ", env.MONGODB_PORT_27017_TCP_ADDR, env.MONGODB_PORT_27017_TCP_PORT, env.MONGODB_USER, env.MONGODB_PASS);
+var server = new Server(env.MONGODB_PORT_27017_TCP_ADDR, env.MONGODB_PORT_27017_TCP_PORT, {auto_reconnect: true});
+db = new Db(env.MONGODB_DATABASE, server);
 
 db.open(function(err, db) {
     if(!err) {

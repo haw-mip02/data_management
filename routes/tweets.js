@@ -49,7 +49,7 @@ exports.findByTimestamp = function(req, res) {
     console.log('Retrieving tweets not older than ' + ts);
     db.collection('tweets', function(err, collection) {
 	//TODO: check for greater equal on timestamp
-        collection.find({timestamp_ms: {$gt: ts}}).toArray(function(err, items) {
+        collection.find({timestamp_ms: {$gt: ts}}).limit(100).toArray(function(err, items) {
             console.log(items);
             res.send(items);
         });
@@ -57,23 +57,21 @@ exports.findByTimestamp = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
-    //if(process.env.DB_ACCESS_TOKEN === "RGFzIEFzb3ppYWxlIE5ldHp3ZXJr") {
-      console.log('retrieving all tweets');
-      db.collection('tweets', function(err, collection) {
-          if(err) {
-                  console.log(err);
-          } else {
-                  collection.find().limit(100).toArray(function(err, items) {
-                      res.send(items);
-                  });
-          }
-      });
-    //}
+    console.log('retrieving all tweets');
+    db.collection('tweets', function(err, collection) {
+        if(err) {
+                console.log(err);
+        } else {
+                collection.find().limit(100).toArray(function(err, items) {
+                    res.send(items);
+                });
+        }
+    });
 };
 
 exports.addTweets = function(req, res) {
-    //console.log(req);
-    var tweets = req.body;
+  if(process.env.DB_ACCESS_TOKEN === req.body.token) {
+    var tweets = req.body.data;
     //console.log('Adding tweets: ' + tweets + '\n');
     db.collection('tweets', function(err, collection) {
         if (err) {
@@ -94,7 +92,10 @@ exports.addTweets = function(req, res) {
             console.log(e);
           }
         }
-      });
+    });
+  } else {
+    console.log('Wrong API Token.');
+  }
 }
 
 // /*--------------------------------------------------------------------------------------------------------------------*/

@@ -50,7 +50,6 @@ exports.findByTimestamp = function(req, res) {
     db.collection('tweets', function(err, collection) {
 	//TODO: check for greater equal on timestamp
         collection.find({timestamp_ms: {$gt: ts}}).limit(100).toArray(function(err, items) {
-            console.log(items);
             res.send(items);
         });
     });

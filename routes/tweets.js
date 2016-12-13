@@ -31,7 +31,7 @@ db.open(function(err, db) {
 
 exports.findById = function(req, res) {
     var id = req.params.id;
-    console.log('Retrieving tweet: ' + id);
+    //console.log('Retrieving tweet: ' + id);
     db.collection('tweets', function(err, collection) {
 	if(err) {
                 res.status(404).send({'Error 404': err});
@@ -46,7 +46,7 @@ exports.findById = function(req, res) {
 
 exports.findByTimestamp = function(req, res) {
     var ts = req.params.timestamp;
-    console.log('Retrieving tweets not older than ' + ts);
+    //console.log('Retrieving tweets not older than ' + ts);
     db.collection('tweets', function(err, collection) {
 	//TODO: check for greater equal on timestamp
         collection.find({timestamp_ms: {$gt: ts}}).limit(100).toArray(function(err, items) {
@@ -56,7 +56,7 @@ exports.findByTimestamp = function(req, res) {
 };
 
 exports.findAll = function(req, res) {
-    console.log('retrieving all tweets');
+    //console.log('retrieving all tweets');
     db.collection('tweets', function(err, collection) {
         if(err) {
                 console.log(err);
@@ -84,7 +84,7 @@ exports.addTweets = function(req, res) {
                     console.log(err);
                 } else {
                     res.send(result[0]);
-                    console.log('addTweet: SUCCESS')
+                    //console.log('addTweet: SUCCESS')
                 }
             });
           } catch (e) {
@@ -93,7 +93,7 @@ exports.addTweets = function(req, res) {
         }
     });
   } else {
-    console.log('Wrong API Token.');
+    console.log('ERROR: wrong API Token.');
   }
 }
 
